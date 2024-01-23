@@ -1,0 +1,133 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
+    #calculator {
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      max-width: 400px;
+      width: 100%;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: calc(100% - 20px);
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+      background-color: cyan;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;  
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button.clear {
+      background-color: pink;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="calculator">
+  <label for="weight">Weight (kg):</label>
+  <input type="number" id="weight" placeholder="Enter your weight">
+
+  <label for="height">Height (cm):</label>
+  <input type="number" id="height" placeholder="Enter your height">
+
+  <button onclick="calculateBMI()">Calculate BMI</button>
+  <button class="clear" onclick="clearInputs()">Clear</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  function calculateBMI() {
+    const weight = parseFloat(document.getElementById("weight").value);
+    const height = parseFloat(document.getElementById("height").value);
+
+    if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+      document.getElementById("result").innerText = "Invalid input. Please enter valid values.";
+      return;
+    }
+
+    const bmi = weight / ((height / 100) * (height / 100));
+
+    let status = "";
+    if (bmi < 18.5) {
+      status = "Underweight";
+    } else if (bmi >= 18.5 && bmi <= 24.9) {
+      status = "Healthy Weight";
+    } else if (bmi >= 25.0 && bmi <= 29.9) {
+      status = "Overweight";
+    } else {
+      status = "Obesity";
+    }
+
+    document.getElementById("result").innerText = `Your BMI: ${bmi.toFixed(2)} - ${status}`;
+  }
+
+  function clearInputs() {
+    document.getElementById("weight").value = "";
+    document.getElementById("height").value = "";
+    document.getElementById("result").innerText = "";
+  }
+</script>
+
+</body>
+</html>
